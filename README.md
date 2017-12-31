@@ -19,6 +19,8 @@ TODOs
 
 - Implement a better model to express the flow
 
+- Improve timing (how long does a move really take?)
+
 - Make the rythm mode work
 
 - Add a BT and enable wireless stearing
