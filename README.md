@@ -12,7 +12,7 @@ My code contains "modes" that are choosen by random (like walk, sit, ...).
 PRs welcome
 -----------
 
-If someone want to at her/his code please send PRs, i sent this URL over to the artist who made the masterpiece.
+If someone want to add her/his code please send PRs, i sent this URL over to the artist who made the masterpiece.
 
 TODOs
 -----
