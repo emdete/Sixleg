@@ -3,7 +3,7 @@ SIXLEG
 
 This is the code i implemented for the bug at the 34C3 in Leibzig Dec 2017.
 
-![Video](2017-12-27T15:34:28.webm)
+[![Bug](https://github.com/emdete/Sixleg/raw/master/2017-12-27T15:34:28-2.jpg)](https://github.com/emdete/Sixleg/raw/master/2017-12-27T15:34:28.webm)
 
 TODOs
 -----
