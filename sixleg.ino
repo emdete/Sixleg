@@ -43,24 +43,26 @@ void setup() {
 
 // check all legs counterclockwise
 static void checkleg() {
-	digitalWrite(leg_front_left, HIGH);
-	delay(500);
-	digitalWrite(leg_front_left, LOW);
-	digitalWrite(leg_middle_left, HIGH);
-	delay(500);
-	digitalWrite(leg_middle_left, LOW);
-	digitalWrite(leg_back_left, HIGH);
-	delay(500);
-	digitalWrite(leg_back_left, LOW);
-	digitalWrite(leg_back_right, HIGH);
-	delay(500);
-	digitalWrite(leg_back_right, LOW);
-	digitalWrite(leg_middle_right, HIGH);
-	delay(500);
-	digitalWrite(leg_middle_right, LOW);
-	digitalWrite(leg_front_right, HIGH);
-	delay(500);
-	digitalWrite(leg_front_right, LOW);
+	for (int i=0;i<random(1,3);i++) {
+		digitalWrite(leg_front_left, HIGH);
+		delay(500);
+		digitalWrite(leg_front_left, LOW);
+		digitalWrite(leg_middle_left, HIGH);
+		delay(500);
+		digitalWrite(leg_middle_left, LOW);
+		digitalWrite(leg_back_left, HIGH);
+		delay(500);
+		digitalWrite(leg_back_left, LOW);
+		digitalWrite(leg_back_right, HIGH);
+		delay(500);
+		digitalWrite(leg_back_right, LOW);
+		digitalWrite(leg_middle_right, HIGH);
+		delay(500);
+		digitalWrite(leg_middle_right, LOW);
+		digitalWrite(leg_front_right, HIGH);
+		delay(500);
+		digitalWrite(leg_front_right, LOW);
+	}
 }
 
 // try to pivot
@@ -135,17 +137,19 @@ static void sitdown() {
 
 // shake
 static void shake() {
-	digitalWrite(leg_middle_right, HIGH);
-	digitalWrite(leg_middle_left, HIGH);
-	digitalWrite(move_inner_left, HIGH);
-	digitalWrite(move_inner_right, HIGH);
-	delay(400);
-	digitalWrite(move_inner_left, LOW);
-	digitalWrite(move_inner_right, LOW);
-	delay(100);
-	digitalWrite(leg_middle_right, LOW);
-	digitalWrite(leg_middle_left, LOW);
-	delay(800);
+	for (int i=0;i<random(1,3);i++) {
+		digitalWrite(leg_middle_right, HIGH);
+		digitalWrite(leg_middle_left, HIGH);
+		digitalWrite(move_inner_left, HIGH);
+		digitalWrite(move_inner_right, HIGH);
+		delay(400);
+		digitalWrite(move_inner_left, LOW);
+		digitalWrite(move_inner_right, LOW);
+		delay(100);
+		digitalWrite(leg_middle_right, LOW);
+		digitalWrite(leg_middle_left, LOW);
+		delay(800);
+	}
 }
 
 #define WAIT_DELAY 300
@@ -211,18 +215,20 @@ static void rythm() {
 		0,
 	};
 	byte state = 0;
-	for (int p=0;p<sizeof(r)/sizeof(*r);p++) {
-		long tick = millis();
-		byte change = state ^ r[p];
-		for (int b=0;b<6;b++) {
-			if (change & 1 << b) {
-				digitalWrite(legs[b], r[p] & 1 << b? HIGH: LOW);
+	for (int i=0;i<random(3,7);i++) {
+		for (int p=0;p<sizeof(r)/sizeof(*r);p++) {
+			long tick = millis();
+			byte change = state ^ r[p];
+			for (int b=0;b<6;b++) {
+				if (change & 1 << b) {
+					digitalWrite(legs[b], r[p] & 1 << b? HIGH: LOW);
+				}
 			}
-		}
-		state = r[p];
-		tick += 60000L / 120; // BPM
-		while (millis() < tick) {
-			delay(3);
+			state = r[p];
+			tick += 60000L / 120; // BPM
+			while (millis() < tick) {
+				delay(3);
+			}
 		}
 	}
 }
@@ -262,36 +268,15 @@ static void tilt() {
 // take one random action
 void loop() {
 	switch (random(12)) {
-		case 0:
-			delay(123 * random(3, 7));
-			break;
-		case 1:
-			sitdown();
-			break;
-		case 2:
-			greet();
-			break;
-		case 3:
-			for (int i=0;i<random(1,3);i++)
-				checkleg();
-			break;
-		case 4:
-			for (int i=0;i<random(3,7);i++)
-				rythm();
-			break;
-		case 5:
-			for (int i=0;i<random(1,3);i++)
-				shake();
-			break;
-		case 6:
-			laydown();
-			break;
-		case 7:
-			tilt();
-			break;
-		default:
-			walk(random(10, 30));
-		break;
+		case 0: delay(123 * random(3, 7)); break;
+		case 1: sitdown(); break;
+		case 2: greet(); break;
+		case 3: checkleg(); break;
+		case 4: rythm(); break;
+		case 5: shake(); break;
+		case 6: laydown(); break;
+		case 7: tilt(); break;
+		default: walk(random(10, 30)); break;
 	}
 }
 
