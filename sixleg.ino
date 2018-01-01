@@ -261,7 +261,7 @@ static void tilt() {
 
 // take one random action
 void loop() {
-	switch (random(7)) {
+	switch (random(12)) {
 		case 0:
 			delay(123 * random(3, 7));
 			break;
