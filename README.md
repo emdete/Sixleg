@@ -1,7 +1,7 @@
 SIXLEG
 ======
 
-This is the code i implemented for the bug at the 34C3 in Leibzig Dec 2017.
+This is the code i implemented for "the bug" at the 34C3 in Leibzig Dec 2017.
 
 [![Bug](https://github.com/emdete/Sixleg/raw/master/2017-12-27T15:34:28-2.jpg)](https://github.com/emdete/Sixleg/raw/master/2017-12-27T15:34:28.webm)
 
@@ -12,7 +12,7 @@ My code contains "modes" that are choosen by random (like walk, sit, ...).
 PRs welcome
 -----------
 
-If someone want to add her/his code please send PRs, i sent this URL over to the artist who made the masterpiece.
+If someone wants to add her/his code please send PRs, i sent this URL over to the artist who made the masterpiece.
 
 TODOs
 -----

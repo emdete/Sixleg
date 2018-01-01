@@ -103,7 +103,7 @@ static void pivot() {
 }
 
 // sit down
-static void sit() {
+static void sitdown() {
 	// legs forward
 	digitalWrite(move_outer_right, HIGH);
 	digitalWrite(move_inner_right, HIGH);
@@ -117,7 +117,7 @@ static void sit() {
 	digitalWrite(leg_back_right, HIGH);
 	digitalWrite(leg_back_left, HIGH);
 	// sitting
-	delay(1200);
+	delay(123 * random(9, 11));
 	// stand up
 	digitalWrite(leg_front_left, LOW);
 	digitalWrite(leg_back_left, LOW);
@@ -179,7 +179,7 @@ static void greet() {
 	digitalWrite(move_inner_right, LOW);
 	delay(300);
 	digitalWrite(leg_middle_right, LOW);
-	delay(2000);
+	delay(123 * random(8, 12));
 }
 
 // dance!
@@ -227,30 +227,49 @@ static void rythm() {
 	}
 }
 
-static void alloff() {
+static void laydown() {
 	digitalWrite(leg_front_left, HIGH);
 	digitalWrite(leg_back_left, HIGH);
 	digitalWrite(leg_middle_left, HIGH);
 	digitalWrite(leg_front_right, HIGH);
 	digitalWrite(leg_back_right, HIGH);
 	digitalWrite(leg_middle_right, HIGH);
+	delay(123 * random(7, 12));
+	digitalWrite(leg_front_left, LOW);
+	digitalWrite(leg_back_left, LOW);
+	digitalWrite(leg_middle_left, LOW);
+	digitalWrite(leg_front_right, LOW);
+	digitalWrite(leg_back_right, LOW);
+	digitalWrite(leg_middle_right, LOW);
+}
+
+// tilt body down
+static void tilt() {
+	for (int i=0;i<3;i++) {
+		digitalWrite(move_outer_right, HIGH);
+		digitalWrite(move_inner_right, HIGH);
+		digitalWrite(move_outer_left, HIGH);
+		digitalWrite(move_inner_left, HIGH);
+		delay(123 * random(7, 12));
+		digitalWrite(move_outer_right, LOW);
+		digitalWrite(move_inner_right, LOW);
+		digitalWrite(move_outer_left, LOW);
+		digitalWrite(move_inner_left, LOW);
+		delay(123 * random(7, 12));
+	}
 }
 
 // take one random action
 void loop() {
-	//alloff(); return;
-//	digitalWrite(leg_back_left, HIGH); return;
 	switch (random(7)) {
 		case 0:
 			delay(123 * random(3, 7));
 			break;
 		case 1:
-			sit();
-			delay(123 * random(3, 7));
+			sitdown();
 			break;
 		case 2:
 			greet();
-			delay(123 * random(3, 7));
 			break;
 		case 3:
 			for (int i=0;i<random(1,3);i++)
@@ -264,8 +283,13 @@ void loop() {
 			for (int i=0;i<random(1,3);i++)
 				shake();
 			break;
+		case 6:
+			laydown();
+			break;
+		case 7:
+			tilt();
+			break;
 		default:
-			//delay(3000); break;
 			walk(random(10, 30));
 		break;
 	}
