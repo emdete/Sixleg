@@ -145,11 +145,10 @@ static void shake() {
 		delay(400);
 		digitalWrite(move_inner_left, LOW);
 		digitalWrite(move_inner_right, LOW);
-		delay(100);
-		digitalWrite(leg_middle_right, LOW);
-		digitalWrite(leg_middle_left, LOW);
-		delay(800);
+		delay(400);
 	}
+	digitalWrite(leg_middle_right, LOW);
+	digitalWrite(leg_middle_left, LOW);
 }
 
 #define WAIT_DELAY 300
