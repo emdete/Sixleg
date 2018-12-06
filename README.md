@@ -1,9 +1,9 @@
 SIXLEG
 ======
 
-This is the code i implemented for "the bug" at the 34C3 in Leibzig Dec 2017.
+This is the code i implemented for "Malibü 2" alias Sixleg at the 34C3 in Leibzig Dec 2017.
 
-[![Bug](https://github.com/emdete/Sixleg/raw/master/2017-12-27T15:34:28-2.jpg)](https://github.com/emdete/Sixleg/raw/master/2017-12-27T15:34:28.webm)
+[![Sixleg](https://github.com/emdete/Sixleg/raw/master/2017-12-27T15:34:28-2.jpg)](https://github.com/emdete/Sixleg/raw/master/2017-12-27T15:34:28.webm)
 
 My code is ugly as it is just a cut&paste flow of commands to lift the feet or move the legs, this could be done better.
 
@@ -12,7 +12,14 @@ My code contains "modes" that are choosen by random (like walk, sit, ...).
 PRs welcome
 -----------
 
-If someone wants to add her/his code please send PRs, i sent this URL over to the artist who made the masterpiece.
+If someone wants to add her/his code please send PRs, i sent this URL over to the artist who made this masterpiece of a bug.
+
+Trivia
+------
+
+I gave this bug the name Sixleg it when i first found it. Later i found its name is "Malibü 2".
+
+On the last day of the congress Sixleg broke. The carpet was already dead the day before but Sixleg survived longer. But finally a joint broke and the left rear leg was overflexed and broke an air hose. So i programmed "alloff" to remove air pressure from all hoses. Deploying the program let Sixleg lay down completly.
 
 TODOs
 -----
@@ -27,10 +34,8 @@ TODOs
 
 - Add validation of commands
 
-Trivia
+Future
 ------
 
-The bug has a name which is not Sixlegs as i named it when i found it. I heard the name but my bad memory for names lost it again.
-
-On the last day of the congress the bug broke. The carpet was already dead but the bug survived longer. But finally a joint broke and the left rear leg was overflexed and a airtube broke. So i programmed "alloff" to remove air pressure from all tubes in the end. Deploying the program let the bug completly lay down.
+See you on the **35c3**!
 
