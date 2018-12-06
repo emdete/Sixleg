@@ -17,7 +17,7 @@ If someone wants to add her/his code please send PRs, i sent this URL over to th
 Trivia
 ------
 
-I gave this bug the name Sixleg it when i first found it. Later i found its name is "Malibü 2".
+I gave this bug the name Sixleg when i first found it. Later i found its name is "Malibü 2".
 
 On the last day of the congress Sixleg broke. The carpet was already dead the day before but Sixleg survived longer. But finally a joint broke and the left rear leg was overflexed and broke an air hose. So i programmed "alloff" to remove air pressure from all hoses. Deploying the program let Sixleg lay down completly.
 
