@@ -1,22 +1,29 @@
-static const int wait_delay = 500; // wait time after a atomic move until final position is reached
-static const int leg_back_left_up = 9;
-static const int leg_back_left_move = -1;
-static const int leg_back_right_up = 4;
-static const int leg_back_right_move = -1;
-static const int leg_front_left_move = 7;
 static const int leg_front_left_up = 11;
-static const int leg_front_right_move = 2;
-static const int leg_front_right_up = 6;
-static const int leg_middle_left_move = 8;
+static const int leg_back_left_up = 9;
 static const int leg_middle_left_up = 10;
-static const int leg_middle_right_move = 3;
+static const int leg_front_right_up = 6;
+static const int leg_back_right_up = 4;
 static const int leg_middle_right_up = 5;
-static const int tail_up = -1;
-static const int head_up = -1;
-static const int head_left = -1;
+
+static const int leg_front_left_move = 12;
+static const int leg_back_left_move = 14;
+static const int leg_middle_left_move = 13;
+static const int leg_front_right_move = 17;
+static const int leg_back_right_move = 16;
+static const int leg_middle_right_move = 15;
+
+static const int head_tilt = 8;
+static const int head_pan_right = 2;
+static const int head_pan_left = 3;
+static const int tail_up = 7;
+
+static const int wait_delay = 600; // wait time after a atomic move until final position is reached
 
 static void init_legs() {
+	Serial.println("sixleg init_legs");
+	digitalWrite(leg_front_left_move, LOW);
 	digitalWrite(leg_front_left_up, LOW);
+	digitalWrite(leg_back_left_move, LOW);
 	digitalWrite(leg_back_left_up, LOW);
 	digitalWrite(leg_middle_left_up, LOW);
 	digitalWrite(leg_front_right_up, LOW);
@@ -26,6 +33,9 @@ static void init_legs() {
 	digitalWrite(leg_middle_right_move, LOW);
 	digitalWrite(leg_front_left_move, LOW);
 	digitalWrite(leg_middle_left_move, LOW);
+	digitalWrite(head_up, LOW);
+	digitalWrite(head_left, LOW);
+	digitalWrite(tail_up, LOW);
 }
 
 // (re)setup unit
@@ -33,40 +43,42 @@ void setup() {
 	Serial.begin(38400);
 	Serial.println("sixleg init");
 	randomSeed(analogRead(0));
-	pinMode(leg_front_left_up, OUTPUT);
+	pinMode(leg_back_left_move, OUTPUT);
 	pinMode(leg_back_left_up, OUTPUT);
-	pinMode(leg_middle_left_up, OUTPUT);
-	pinMode(leg_front_right_up, OUTPUT);
+	pinMode(leg_back_right_move, OUTPUT);
 	pinMode(leg_back_right_up, OUTPUT);
-	pinMode(leg_middle_right_up, OUTPUT);
-	pinMode(leg_front_right_move, OUTPUT);
-	pinMode(leg_middle_right_move, OUTPUT);
 	pinMode(leg_front_left_move, OUTPUT);
+	pinMode(leg_front_left_up, OUTPUT);
+	pinMode(leg_front_right_move, OUTPUT);
+	pinMode(leg_front_right_up, OUTPUT);
 	pinMode(leg_middle_left_move, OUTPUT);
+	pinMode(leg_middle_left_up, OUTPUT);
+	pinMode(leg_middle_right_move, OUTPUT);
+	pinMode(leg_middle_right_up, OUTPUT);
+	pinMode(head_up, OUTPUT);
+	pinMode(head_left, OUTPUT);
+	pinMode(tail_up, OUTPUT);
 	init_legs();
 }
 
 // check all legs counterclockwise
-static void checkleg() {
-	for (int i=0;i<random(1,3);i++) {
-		digitalWrite(leg_front_left_up, HIGH);
-		delay(wait_delay);
-		digitalWrite(leg_front_left_up, LOW);
-		digitalWrite(leg_middle_left_up, HIGH);
-		delay(wait_delay);
-		digitalWrite(leg_middle_left_up, LOW);
-		digitalWrite(leg_back_left_up, HIGH);
-		delay(wait_delay);
-		digitalWrite(leg_back_left_up, LOW);
-		digitalWrite(leg_back_right_up, HIGH);
-		delay(wait_delay);
-		digitalWrite(leg_back_right_up, LOW);
-		digitalWrite(leg_middle_right_up, HIGH);
-		delay(wait_delay);
-		digitalWrite(leg_middle_right_up, LOW);
-		digitalWrite(leg_front_right_up, HIGH);
-		delay(wait_delay);
-		digitalWrite(leg_front_right_up, LOW);
+#define CHECK(up, back) \
+	digitalWrite(up, HIGH); \
+	delay(wait_delay); \
+	digitalWrite(back, LOW); \
+	delay(wait_delay); \
+	digitalWrite(back, HIGH); \
+	delay(wait_delay); \
+	digitalWrite(up, LOW); \
+	delay(wait_delay);
+static void checkleg(int count) {
+	for (int i=0;i<count;i++) {
+		CHECK(leg_front_left_up, leg_front_left_move);
+		CHECK(leg_middle_left_up, leg_middle_left_move);
+		CHECK(leg_back_left_up, leg_back_left_move);
+		CHECK(leg_back_right_up, leg_back_right_move);
+		CHECK(leg_middle_right_up, leg_middle_right_move);
+		CHECK(leg_front_right_up, leg_front_right_move);
 	}
 }
 
@@ -157,11 +169,32 @@ static void shake() {
 }
 
 // walk count steps
-#define LEFT_UP(S) digitalWrite(leg_front_left_up, S); digitalWrite(leg_back_left_up, S); digitalWrite(leg_middle_right_up, S); delay(wait_delay);
-#define LEFT_FORWARD(S) digitalWrite(leg_front_left_move, S); digitalWrite(leg_middle_right_move, S); delay(wait_delay);
-#define RIGHT_UP(S) digitalWrite(leg_middle_left_up, S); digitalWrite(leg_front_right_up, S); digitalWrite(leg_back_right_up, S); delay(wait_delay);
-#define RIGHT_FORWARD(S) digitalWrite(leg_front_right_move, S); digitalWrite(leg_middle_left_move, S); delay(wait_delay);
+#define LEFT_UP(S) \
+	Serial.println(S==HIGH?"walk LEFT_UP":"walk LEFT_LOW"); \
+	digitalWrite(leg_front_left_up, S); \
+	digitalWrite(leg_back_left_up, S); \
+	digitalWrite(leg_middle_right_up, S); \
+	delay(wait_delay);
+#define LEFT_FORWARD(S) \
+	Serial.println(S==HIGH?"walk LEFT_FORWARD":"walk LEFT_BACKWARD"); \
+	digitalWrite(leg_front_left_move, S); \
+	digitalWrite(leg_middle_right_move, S); \
+	digitalWrite(leg_back_right_move, S); \
+	delay(wait_delay);
+#define RIGHT_UP(S) \
+	Serial.println(S==HIGH?"walk RIGHT_UP":"walk RIGHT_LOW"); \
+	digitalWrite(leg_middle_left_up, S); \
+	digitalWrite(leg_front_right_up, S); \
+	digitalWrite(leg_back_right_up, S); \
+	delay(wait_delay);
+#define RIGHT_FORWARD(S) \
+	Serial.println(S==HIGH?"walk RIGHT_FORWARD":"walk RIGHT_BACKWARD"); \
+	digitalWrite(leg_front_right_move, S); \
+	digitalWrite(leg_middle_left_move, S); \
+	digitalWrite(leg_back_left_move, S); \
+	delay(wait_delay);
 static void walk(const int count) {
+	Serial.println("walk");
 	LEFT_UP(HIGH);
 	for (int i=0;i<count;i++) {
 		// take one full step (all phases)
@@ -175,6 +208,7 @@ static void walk(const int count) {
 		RIGHT_FORWARD(LOW);
 	}
 	LEFT_UP(LOW);
+	delay(wait_delay);
 }
 
 // lift left middle feet to greet
@@ -269,16 +303,19 @@ static void tilt() {
 
 // take one random action
 void loop() {
-	switch (random(12)) {
-		case 0: delay(123 * random(3, 7)); break;
-		case 1: sitdown(); break;
-		case 2: greet(); break;
-		case 3: checkleg(); break;
-		case 4: rythm(); break;
-		case 5: shake(); break;
-		case 6: laydown(); break;
-		case 7: tilt(); break;
-		default: walk(random(10, 30)); break;
-	}
+	//switch (random(12)) {
+		//case 0: delay(123 * random(3, 7)); break;
+		//case 1: sitdown(); break;
+		//case 2: greet(); break;
+		//case 3: checkleg(random(1,3)); break;
+		//case 4: rythm(); break;
+		//case 5: shake(); break;
+		//case 6: laydown(); break;
+		//case 7: tilt(); break;
+		//default:
+			walk(random(10, 30));
+		//break;
+	//}
+	delay(10000);
 }
 
