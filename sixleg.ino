@@ -33,8 +33,9 @@ static void init_legs() {
 	digitalWrite(leg_middle_right_move, LOW);
 	digitalWrite(leg_front_left_move, LOW);
 	digitalWrite(leg_middle_left_move, LOW);
-	digitalWrite(head_up, LOW);
-	digitalWrite(head_left, LOW);
+	digitalWrite(head_tilt, LOW);
+	digitalWrite(head_pan_left, LOW);
+	digitalWrite(head_pan_right, LOW);
 	digitalWrite(tail_up, LOW);
 }
 
@@ -55,8 +56,9 @@ void setup() {
 	pinMode(leg_middle_left_up, OUTPUT);
 	pinMode(leg_middle_right_move, OUTPUT);
 	pinMode(leg_middle_right_up, OUTPUT);
-	pinMode(head_up, OUTPUT);
-	pinMode(head_left, OUTPUT);
+	pinMode(head_tilt, OUTPUT);
+	pinMode(head_pan_left, OUTPUT);
+	pinMode(head_pan_right, OUTPUT);
 	pinMode(tail_up, OUTPUT);
 	init_legs();
 }
